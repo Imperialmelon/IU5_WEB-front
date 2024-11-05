@@ -7,6 +7,7 @@ import {CargoCard} from "../../components/CargoCart/index.tsx";
 import empty_cart_image from '/images/box.svg'
 import {Breadcrumbs} from "../../components/Breadcrumbs/index.tsx";
 import search_image from '/images/search.svg'
+import filled_cart from '/images/box-fill.svg'
 import {useSoftwareCatalogPage} from "./useCargoCatalogPage.tsx";
 import { CargoCardProps } from "../../components/CargoCart/typing.tsx";
 export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
@@ -15,6 +16,9 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         CargoList,
         handleSearchCargoClick,
         handleSearchNameChange,
+        handleSetFilterClick,
+        handlePriceFilter,
+        cnt
     } = useSoftwareCatalogPage();
 
     return (
@@ -23,9 +27,9 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
             <Breadcrumbs
                     endItem="Каталог"
                 />
-            <Container>
+            <Container className="p-0">
 
-                <form className="d-flex mt-4 mb-4 flex-grow-1">
+                <form className="d-flex mt-4 mb-4 flex-grow-1" style={{height : "35px"}}>
                     <div style={{width : "30%"}}></div>
                     <div className="d-flex flex-grow-1 justify-content-between">
                     <div className="d-flex">
@@ -40,28 +44,54 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                             />
                         </div>
 
-                    <div className="px-3">
-
+                    <div className="px-3 d-flex gap-2">
                     <Button
                         onClick={handleSearchCargoClick}
-                        className="btn bg-white text-dark border-dark"
+                        className="btn bg-white text-dark border-dark d-flex"
                                                                 >
                         Найти &nbsp;   
                         <img src= {search_image} width="25" alt="cart"  />
                 
                     </Button>
+                    <div>
+                    <input
+                                className="input form-control"
+                                onChange={handlePriceFilter}
+                                placeholder="Фильтр"
+                                aria-label="Фильтр"
+                                // name="software_title"
+                                type="text"
+                            />
+                            </div>
+                            <div>
+                        <Button
+                            onClick={handleSetFilterClick}
+                            className="btn bg-white text-dark border-dark h-100 " > 
+                        </Button>
+                        </div>
                     </div>
                     </div>
                     <div>
-                        <a href={`/request/1`} className="btn dark-blue-border">
-                            <img src={empty_cart_image} width="25" alt="cart"/>
+                        <a href={`/request/1`} className="btn border-dark"> 
+                        <div className="d-flex gap-1">
+
+                        <span className="ms-2">{Number(cnt)}</span>
+                        {Number(cnt) != 0 ? (
+                            <img src={filled_cart} width="25" alt="cart"/>
+                        ) : <img src={empty_cart_image} width="25" alt="cart"/>
+                        }
+                        
+                            {/* <img src={empty_cart_image} width="25" alt="cart"/> */}
+                            
+                        </div>
+
                         </a>
                     </div>
                     </div>
                 </form>
                 {CargoList && !!CargoList.length ? (
                     <div className="row row-cols-1 row-cols-md-2
-                    row-cols-lg-3 g-4">
+                    row-cols-lg-3 g-3 w-100" >
                                             {CargoList.map((cargo, ind) => {
                             const props: CargoCardProps = {
                                 id: cargo.pk,

@@ -1,16 +1,27 @@
 import {sendRequest} from "../index.ts";
 import {CargoListResponse, Cargo} from "./typing.ts";
-export const getCargoList = async (searchTitle?: string) => {
+export const getCargoList = async (searchTitle?: string, priceFilter? : Number) => {
     try {
+        const params: {[key: string]: any} = {};
+    
+    if (searchTitle) {
+            params.cargo_name = searchTitle;
+        }
+
+    if (priceFilter) {
+            params.min_price = priceFilter;
+        }
+    
         const response: CargoListResponse = await sendRequest({
             method: "GET",
             path: "/cargoes",
-            params: searchTitle ? {cargo_name: searchTitle} : undefined,
+            params: Object.keys(params).length > 0 ? params : undefined,
         });
+        alert(response.cargoes)
         return response;
 
     } catch (error) {
-        console.error("Error fetching planets:", error);
+        console.error("Error:", error);
         throw error;
     }
 };
@@ -24,7 +35,7 @@ export const getCargo = async (id : string) => {
         return response
     }
     catch (error){
-        console.error("Error fetching planets:", error);
+        console.error("Error", error);
         throw error;
     }
 }

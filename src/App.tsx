@@ -1,13 +1,13 @@
 import "./App.css";
 import {  HashRouter } from "react-router-dom";
 import { AppRoutes } from "./Routes";
-import { useGlobalProps } from "./hooks/useGlobalProps";
+// import { useGlobalProps } from "./hooks/useGlobalProps";
 
 function App() {
-  const globalProps = useGlobalProps();
+  // const globalProps = useGlobalProps();
   return (
       <HashRouter>
-          <AppRoutes {...globalProps} />
+          <AppRoutes />
       </HashRouter>
   );
 }

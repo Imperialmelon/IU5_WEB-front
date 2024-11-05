@@ -10,33 +10,67 @@ import { CargoList_ } from "../../core/mock/CargoList.ts";
 export const useSoftwareCatalogPage = () => {
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
     const [CargoName, setSearchCargoName] = useState("");
+    const [price_filter, setPriceFilter] = useState("");
+    const [cnt , setCnt] = useState<Number | null> (null);
+
 
     const handleSearchCargoClick = () => {
-        getCargoList(CargoName)
+        getCargoList(CargoName,Number(price_filter))
             .then((data) => {
-                alert('then')
+                // alert('then')
                 setCargoList(data.cargoes);
+                setCnt(data.cnt);
             })
             .catch(() => {
                 alert('catch')
-                const filteredPlanets = CargoList_.filter((cargo) =>
+                const filteredcargos = CargoList_.filter((cargo) =>
                     cargo.title.toLowerCase().startsWith(CargoName.toLowerCase())
-                );
-                setCargoList(filteredPlanets);
+                )
+                setCargoList(filteredcargos);
+                setCnt(null)
             });
     };
+    
     const handleSearchNameChange = (e: ChangeEvent) => {
         setSearchCargoName(e.target.value);
     };
+
+    const handleSetFilterClick = () => {
+
+        getCargoList(CargoName, Number(price_filter))
+            .then((data) => {
+                setCargoList(data.cargoes)
+
+        }
+        )
+        .catch(() =>{
+            // alert(`${price_filter}`)
+            const filteredcargos = CargoList_.filter((cargo) =>
+                {
+                    return cargo.price_per_ton >= Number(price_filter);
+                }
+            )
+            // alert(filteredcargos)
+                setCargoList(filteredcargos)
+        }
+    )
+    }
+
+
+    const handlePriceFilter = (e : ChangeEvent) => {
+        setPriceFilter(e.target.value)
+    }
+
     useEffect(() => {
 
         getCargoList()
         .then((data) => {
-            console.log(1)
             setCargoList(data.cargoes);
+            setCnt(data.cnt)
         })
         .catch(() => {
             setCargoList(CargoList_);
+            setCnt(null)
         });
 
     }, []);
@@ -44,5 +78,9 @@ export const useSoftwareCatalogPage = () => {
         CargoList,
         handleSearchCargoClick,
         handleSearchNameChange,
+        handleSetFilterClick,
+        handlePriceFilter,
+        cnt
+
     };
 };

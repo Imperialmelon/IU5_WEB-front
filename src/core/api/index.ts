@@ -1,3 +1,4 @@
+import { json } from "react-router-dom";
 import { IRequestOptions } from "./typing";
 /* export const BASE_URL = "http://localhost:8080"; */
 export const BASE_URL = "/api";
@@ -20,7 +21,6 @@ export const sendRequest = async (options: IRequestOptions) => {
         method,
         headers: {
             "Content-Type": "application/json",
-            //Authorization: !isAuth && accessToken ? /* "Bearer " + */ accessToken : "",
             ...headers,
         },
         body: data ? JSON.stringify(data) : undefined,

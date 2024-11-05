@@ -23,7 +23,7 @@ export const CargoCard: FC<CargoCardProps> = (cargo : CargoCardProps) => {
                 
             </ul>
             <div className="card-body d-flex justify-content-between ">
-                <a href={`/software/${cargo.id}`} className="btn mx-auto btn_add rounded-0">
+                <a href={`/cargo/${cargo.id}/add`} className="btn mx-auto btn_add rounded-0">
                     Добавить в отправление
                 </a>
                 <Link
