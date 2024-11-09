@@ -1,5 +1,6 @@
 import { json } from "react-router-dom";
 import { IRequestOptions } from "./typing";
+import { lazy } from "react";
 /* export const BASE_URL = "http://localhost:8080"; */
 export const BASE_URL = "/api";
 export const sendRequest = async (options: IRequestOptions) => {
@@ -12,11 +13,9 @@ export const sendRequest = async (options: IRequestOptions) => {
         params = undefined,
         data /* , isAuth = false */,
     } = options;
-    /* const url = new URL(`${BASE_URL}${path}`); */
+
     let url = BASE_URL + path;
-    /*
-    const accessToken = await getCurrentAccessToken();
-    console.log("CurrentAccessToken", accessToken); */
+
     const requestOptions: RequestInit = {
         method,
         headers: {

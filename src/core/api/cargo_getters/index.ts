@@ -17,7 +17,6 @@ export const getCargoList = async (searchTitle?: string, priceFilter? : Number) 
             path: "/cargoes",
             params: Object.keys(params).length > 0 ? params : undefined,
         });
-        alert(response.cargoes)
         return response;
 
     } catch (error) {

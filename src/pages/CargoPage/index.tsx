@@ -33,9 +33,7 @@ export const CargoPage: FC<CargoPageProps> = () => {
                 <Navbar/>
             </>
         );
-    }
-
-    
+    }    
     return (
         <>
             <Navbar/>

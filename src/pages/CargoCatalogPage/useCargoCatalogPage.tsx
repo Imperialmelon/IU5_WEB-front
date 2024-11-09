@@ -17,12 +17,11 @@ export const useSoftwareCatalogPage = () => {
     const handleSearchCargoClick = () => {
         getCargoList(CargoName,Number(price_filter))
             .then((data) => {
-                // alert('then')
+
                 setCargoList(data.cargoes);
                 setCnt(data.cnt);
             })
             .catch(() => {
-                alert('catch')
                 const filteredcargos = CargoList_.filter((cargo) =>
                     cargo.title.toLowerCase().startsWith(CargoName.toLowerCase())
                 )
@@ -44,13 +43,13 @@ export const useSoftwareCatalogPage = () => {
         }
         )
         .catch(() =>{
-            // alert(`${price_filter}`)
+
             const filteredcargos = CargoList_.filter((cargo) =>
                 {
                     return cargo.price_per_ton >= Number(price_filter);
                 }
             )
-            // alert(filteredcargos)
+
                 setCargoList(filteredcargos)
         }
     )

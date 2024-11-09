@@ -15,9 +15,9 @@ export const Navbar: FC = () => {
             >
                 <Container style={{margin: "10px"}}>
                     <NavbarComp.Brand className="brand-custom">
-                        <Link to="/" className="text-white text-decoration-none">
+                        <NavLink to="/" className="text-white text-decoration-none">
                             SpaceY
-                        </Link>
+                        </NavLink>
                     </NavbarComp.Brand>
                     <NavbarComp.Toggle
                         aria-controls="basic-navbar-nav"
@@ -25,7 +25,7 @@ export const Navbar: FC = () => {
                     />
                     <NavbarComp.Collapse id="basic-navbar-nav" style={{margin: "15px", fontFamily : "SPX"}}>
                         <Nav className="me-auto gap-4 gap-sm-3 fs-4">
-                            <NavLink to="/cargo_catalog" className="text-white text-decoration-none">
+                            <NavLink to="cargo_catalog" className="text-white text-decoration-none">
                                 Каталог
                             </NavLink>
                         </Nav>
