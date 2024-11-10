@@ -3,7 +3,7 @@ import {FC} from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
-import {Link, NavLink} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 
 export const Navbar: FC = () => {
     return (

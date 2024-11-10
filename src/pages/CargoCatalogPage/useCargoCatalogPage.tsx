@@ -5,17 +5,24 @@ import {Cargo} from "../../core/api/cargo_getters/typing.ts";
 import {getCargoList} from "../../core/api/cargo_getters/index.ts";
 import { ChangeEvent } from "../../App.typing.tsx";
 import { CargoList_ } from "../../core/mock/CargoList.ts";
+import {selectApp} from "../../core/store/slices/selector";
+import {useSelector, useDispatch} from "../../core/store";
+import {setCargoName} from "../../core/store/slices/appSlice.ts";
+import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 
 
 export const useSoftwareCatalogPage = () => {
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
-    const [CargoName, setSearchCargoName] = useState("");
-    const [price_filter, setPriceFilter] = useState("");
+    // const [CargoName, setSearchCargoName] = useState("");
+    // const [price_filter, setPriceFilter] = useState("");
     const [cnt , setCnt] = useState<Number | null> (null);
+    const {Cargo_name, price_filter} = useSelector(selectApp);
+    const dispatch = useDispatch();
+
 
 
     const handleSearchCargoClick = () => {
-        getCargoList(CargoName,Number(price_filter))
+        getCargoList(Cargo_name,Number(price_filter))
             .then((data) => {
 
                 setCargoList(data.cargoes);
@@ -23,7 +30,7 @@ export const useSoftwareCatalogPage = () => {
             })
             .catch(() => {
                 const filteredcargos = CargoList_.filter((cargo) =>
-                    cargo.title.toLowerCase().startsWith(CargoName.toLowerCase())
+                    cargo.title.toLowerCase().startsWith(Cargo_name.toLowerCase())
                 )
                 setCargoList(filteredcargos);
                 setCnt(null)
@@ -31,12 +38,13 @@ export const useSoftwareCatalogPage = () => {
     };
     
     const handleSearchNameChange = (e: ChangeEvent) => {
-        setSearchCargoName(e.target.value);
+        // setSearchCargoName(e.target.value);
+        dispatch(setCargoName(e.target.value))
     };
 
     const handleSetFilterClick = () => {
 
-        getCargoList(CargoName, Number(price_filter))
+        getCargoList(Cargo_name, Number(price_filter))
             .then((data) => {
                 setCargoList(data.cargoes)
 
@@ -57,12 +65,13 @@ export const useSoftwareCatalogPage = () => {
 
 
     const handlePriceFilter = (e : ChangeEvent) => {
-        setPriceFilter(e.target.value)
+        dispatch(setPriceFilter(e.target.value))
+
     }
 
     useEffect(() => {
 
-        getCargoList()
+        getCargoList(Cargo_name, Number(price_filter))
         .then((data) => {
             setCargoList(data.cargoes);
             setCnt(data.cnt)
@@ -79,7 +88,9 @@ export const useSoftwareCatalogPage = () => {
         handleSearchNameChange,
         handleSetFilterClick,
         handlePriceFilter,
-        cnt
+        Cargo_name,
+        cnt,
+        price_filter,
 
     };
 };

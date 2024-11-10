@@ -18,7 +18,9 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         handleSearchNameChange,
         handleSetFilterClick,
         handlePriceFilter,
-        cnt
+        cnt,
+        Cargo_name,
+        price_filter,
     } = useSoftwareCatalogPage();
 
     return (
@@ -29,11 +31,11 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                 />
             <Container className="p-0">
 
-                <form className="d-flex mt-4 mb-4 flex-grow-1" style={{height : "35px"}}>
+                <form className="d-flex mt-4 mb-4 flex-grow-1" style={{height : "35px", width: "100%"}}>
                     <div style={{width : "30%"}}></div>
                     <div className="d-flex flex-grow-1 justify-content-between">
                     <div className="d-flex">
-                        <div className="d-flex" style={{width : "400px"}}>
+                        <div className="d-flex" style={{width : "100%"}}>
                             <input
                                 className="input form-control"
                                 onChange={handleSearchNameChange}
@@ -41,6 +43,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                                 aria-label="Поиск"
                                 // name="software_title"
                                 type="text"
+                                value={Cargo_name}
                             />
                         </div>
 
@@ -61,6 +64,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                                 aria-label="Фильтр"
                                 // name="software_title"
                                 type="text"
+                                value={String(price_filter)}
                             />
                             </div>
                             <div>

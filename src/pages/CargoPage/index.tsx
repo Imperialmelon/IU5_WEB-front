@@ -46,8 +46,8 @@ export const CargoPage: FC<CargoPageProps> = () => {
                     ]}
                     endItem={CargoData?.title}
                 />
-            <Container className="mx-auto" style={{marginTop :"12%", height : "700px"}}>
-            <Card className="mb-3 w-100  radius-0" style={{height : "400px"}}>
+            <Container className="mx-auto" style={{marginTop :"12%", height : "100%"}}>
+            <Card className="mb-3 w-100  radius-0" style={{height : "100%"}}>
   <Row className="g-0 h-100">
     <Col md={4}>
       <Image className="h-100 w-100"

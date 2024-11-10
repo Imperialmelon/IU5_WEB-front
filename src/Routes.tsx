@@ -50,7 +50,7 @@ export const AppRoutes = () => {
             element: <MainPage  />,
         },
         {
-            path: "cargo_catalog",
+            path: "cargo_catalog/",
             element: <CargoCatalogPage  />,
         },
         {
