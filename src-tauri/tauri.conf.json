@@ -3,7 +3,7 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://192.168.56.1:3000/IU5_WEB-front/",
+    "devPath": "http://<your_ip>/IU5_WEB-front/",
     "distDir": "../build",
     "withGlobalTauri": true
   },
