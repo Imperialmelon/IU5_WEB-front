@@ -6,7 +6,8 @@ import {getCargoList} from "../../core/api/cargo_getters/index.ts";
 import { ChangeEvent } from "../../App.typing.tsx";
 import { CargoList_ } from "../../core/mock/CargoList.ts";
 import {selectApp} from "../../core/store/slices/selector";
-import {useSelector, useDispatch} from "../../core/store";
+// import {useSelector, useDispatch} from "../../core/store";
+import { useDispatch, useSelector } from "react-redux";
 import {setCargoName} from "../../core/store/slices/appSlice.ts";
 import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 

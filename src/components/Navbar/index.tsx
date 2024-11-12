@@ -8,11 +8,7 @@ import { NavLink} from "react-router-dom";
 export const Navbar: FC = () => {
     return (
         <>
-            <NavbarComp expand="lg"
-                        data-bs-theme="dark"
-                        className="dark-blue-back"
-                        style={{height: "90px"}}
-            >
+            <NavbarComp data-bs-theme="dark" className="dark-blue-back" sticky="top" style={{height: "90px"}}>
                 <Container style={{margin: "10px"}}>
                     <NavbarComp.Brand className="brand-custom">
                         <NavLink to="/" className="text-white text-decoration-none">

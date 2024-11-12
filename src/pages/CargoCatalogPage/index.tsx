@@ -24,101 +24,182 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
     } = useSoftwareCatalogPage();
 
     return (
+        // <>
+        //     <Navbar/>
+        //     <Container className="d-flex flex-row justify-content-between mt-4 mb-4">
+        //         <Breadcrumbs endItem="Каталог"/>
+        //         <div>
+        //             <a href={`/request/1`} className="btn border-dark"> 
+        //                 <div className="d-flex gap-1">
+        //                     <span className="ms-2">{Number(cnt)}</span>
+        //                     {Number(cnt) != 0 ? (
+        //                         <img src={filled_cart} width="25" alt="cart"/>
+        //                     ) : <img src={empty_cart_image} width="25" alt="cart"/>
+        //                     }    
+        //                 </div>
+        //             </a>
+        //         </div>
+        //     </Container>
+            
+        //     <Container className="p-0">
+        //             <div className="d-flex flex-row justify-content-center mb-4">
+        //                 <div className="col-10">
+        //                     <input
+        //                         className="input form-control"
+        //                         onChange={handleSearchNameChange}
+        //                         placeholder="Поиск"
+        //                         aria-label="Поиск"
+        //                         // name="software_title"
+        //                         type="text"
+        //                         value={Cargo_name}
+        //                     />
+        //                 </div>
+
+        //                 <div className="px-3 d-flex gap-2">
+        //                     <Button
+        //                         onClick={handleSearchCargoClick}
+        //                         className="btn bg-white text-dark border-dark d-flex">
+        //                         Найти  
+        //                         <img className="ms-2" src= {search_image} width="25" alt="cart"  />
+                        
+        //                     </Button>
+        //                 </div>    
+        //                 <div className="d-flex flex-row gap-2">
+        //                     <div>
+        //                         <input
+        //                             className="input form-control"
+        //                             onChange={handlePriceFilter}
+        //                             placeholder="Фильтр"
+        //                             aria-label="Фильтр"
+        //                             // name="software_title"
+        //                             type="text"
+        //                             value={String(price_filter)}
+        //                         />
+        //                     </div>
+        //                     <div>
+        //                         <Button
+        //                             onClick={handleSetFilterClick}
+        //                             className="btn bg-white text-dark border-dark h-100 " > 
+        //                         </Button>
+        //                     </div>
+        //                 </div>
+                        
+        //             </div>
+        //         {CargoList && !!CargoList.length ? (
+        //             <div className="row row-cols-1 row-cols-md-2
+        //             row-cols-lg-3 g-3 w-100" >
+        //                                     {CargoList.map((cargo, ind) => {
+        //                     const props: CargoCardProps = {
+        //                         id: cargo.pk,
+        //                         title: cargo.title,
+        //                         short_descr: cargo.description,
+        //                         price_per_ton: cargo.price_per_ton,
+        //                         logo_file_path: cargo.logo_file_path,
+        //                     };
+        //                     return (
+        //                         <div className="col">
+        //                             <CargoCard key={ind} {...props} />
+        //                         </div>
+        //                     );
+        //                 })}
+        //             </div>
+        //         ) : (
+        //             <Container className="d-flex justify-content-center mt-4 mb-5">
+        //                 <h2>Ничего не найдено</h2>
+                        
+        //             </Container>
+        //         )}
+        //     </Container>
+
+        // </>
+
+
         <>
-            <Navbar/>
-            <Breadcrumbs
-                    endItem="Каталог"
-                />
-            <Container className="p-0">
-
-                <form className="d-flex mt-4 mb-4 flex-grow-1" style={{height : "35px", width: "100%"}}>
-                    <div style={{width : "30%"}}></div>
-                    <div className="d-flex flex-grow-1 justify-content-between">
-                    <div className="d-flex">
-                        <div className="d-flex" style={{width : "100%"}}>
-                            <input
-                                className="input form-control"
-                                onChange={handleSearchNameChange}
-                                placeholder="Поиск"
-                                aria-label="Поиск"
-                                // name="software_title"
-                                type="text"
-                                value={Cargo_name}
-                            />
-                        </div>
-
-                    <div className="px-3 d-flex gap-2">
+    <Navbar/>
+    <Container className="d-flex flex-row justify-content-between">
+        <Breadcrumbs endItem="Каталог"/>
+        <div className="mt-4 mb-4">
+            <a href={`/request/1`} className="btn border-dark"> 
+                <div className="d-flex gap-1">
+                    <span className="ms-2">{Number(cnt)}</span>
+                    {Number(cnt) != 0 ? (
+                        <img src={filled_cart} width="25" alt="cart"/>
+                    ) : <img src={empty_cart_image} width="25" alt="cart"/>
+                    }    
+                </div>
+            </a>
+        </div>
+    </Container>
+    
+    <Container className="p-0">
+        <div className="d-flex flex-column flex-md-row justify-content-center gap-3 mb-4">
+            {/* Search Section */}
+            <div className="d-flex flex-row col-12 col-md-auto gap-2">
+                <div className="flex-grow-1">
+                    <input
+                        className="form-control"
+                        onChange={handleSearchNameChange}
+                        placeholder="Поиск"
+                        aria-label="Поиск"
+                        type="text"
+                        value={Cargo_name}
+                    />
+                </div>
+                <div>
                     <Button
                         onClick={handleSearchCargoClick}
-                        className="btn bg-white text-dark border-dark d-flex"
-                                                                >
-                        Найти &nbsp;   
-                        <img src= {search_image} width="25" alt="cart"  />
-                
+                        className="btn bg-white text-dark border-dark d-flex align-items-center">
+                        Найти  
+                        <img className="ms-2" src={search_image} width="25" alt="cart" />
                     </Button>
-                    <div>
+                </div>
+            </div>
+
+            {/* Filter Section */}
+            <div className="d-flex flex-row col-12 col-md-auto gap-2">
+                <div className="flex-grow-1">
                     <input
-                                className="input form-control"
-                                onChange={handlePriceFilter}
-                                placeholder="Фильтр"
-                                aria-label="Фильтр"
-                                // name="software_title"
-                                type="text"
-                                value={String(price_filter)}
-                            />
-                            </div>
-                            <div>
-                        <Button
-                            onClick={handleSetFilterClick}
-                            className="btn bg-white text-dark border-dark h-100 " > 
-                        </Button>
-                        </div>
-                    </div>
-                    </div>
-                    <div>
-                        <a href={`/request/1`} className="btn border-dark"> 
-                        <div className="d-flex gap-1">
+                        className="form-control"
+                        onChange={handlePriceFilter}
+                        placeholder="Фильтр"
+                        aria-label="Фильтр"
+                        type="text"
+                        value={String(price_filter)}
+                    />
+                </div>
+                <div>
+                    <Button
+                        onClick={handleSetFilterClick}
+                        className="btn bg-white text-dark border-dark h-100">
+                    </Button>
+                </div>
+            </div>
+        </div>
 
-                        <span className="ms-2">{Number(cnt)}</span>
-                        {Number(cnt) != 0 ? (
-                            <img src={filled_cart} width="25" alt="cart"/>
-                        ) : <img src={empty_cart_image} width="25" alt="cart"/>
-                        }
-                        
-                            {/* <img src={empty_cart_image} width="25" alt="cart"/> */}
-                            
+        {CargoList && !!CargoList.length ? (
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
+                {CargoList.map((cargo, ind) => {
+                    const props: CargoCardProps = {
+                        id: cargo.pk,
+                        title: cargo.title,
+                        short_descr: cargo.description,
+                        price_per_ton: cargo.price_per_ton,
+                        logo_file_path: cargo.logo_file_path,
+                    };
+                    return (
+                        <div className="col" key={ind}>
+                            <CargoCard {...props} />
                         </div>
-
-                        </a>
-                    </div>
-                    </div>
-                </form>
-                {CargoList && !!CargoList.length ? (
-                    <div className="row row-cols-1 row-cols-md-2
-                    row-cols-lg-3 g-3 w-100" >
-                                            {CargoList.map((cargo, ind) => {
-                            const props: CargoCardProps = {
-                                id: cargo.pk,
-                                title: cargo.title,
-                                short_descr: cargo.description,
-                                price_per_ton: cargo.price_per_ton,
-                                logo_file_path: cargo.logo_file_path,
-                            };
-                            return (
-                                <div className="col">
-                                    <CargoCard key={ind} {...props} />
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <Container className="d-flex justify-content-center mt-4 mb-5">
-                        <h2>Ничего не найдено</h2>
-                        
-                    </Container>
-                )}
-                            </Container>
-        </>
+                    );
+                })}
+            </div>
+        ) : (
+            <Container className="d-flex justify-content-center mt-4 mb-5">
+                <h2>Ничего не найдено</h2>
+            </Container>
+        )}
+        </Container>
+    </>
     );
 }
     
