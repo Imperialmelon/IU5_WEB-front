@@ -11,7 +11,7 @@ import {setCargoName} from "../../core/store/slices/appSlice.ts";
 import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 
 
-export const useSoftwareCatalogPage = () => {
+export const useCargoCatalogPage = () => {
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
     // const [CargoName, setSearchCargoName] = useState("");
     // const [price_filter, setPriceFilter] = useState("");

@@ -8,7 +8,7 @@ import empty_cart_image from '/images/box.svg'
 import {Breadcrumbs} from "../../components/Breadcrumbs/index.tsx";
 import search_image from '/images/search.svg'
 import filled_cart from '/images/box-fill.svg'
-import {useSoftwareCatalogPage} from "./useCargoCatalogPage.tsx";
+import {useCargoCatalogPage} from "./useCargoCatalogPage.tsx";
 import { CargoCardProps } from "../../components/CargoCart/typing.tsx";
 export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
     
@@ -21,7 +21,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         cnt,
         Cargo_name,
         price_filter,
-    } = useSoftwareCatalogPage();
+    } = useCargoCatalogPage();
 
     return (
         <>

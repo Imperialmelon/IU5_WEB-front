@@ -14,12 +14,12 @@ export const AppSlice = createSlice({
     name : "appSlice",
     initialState,
     reducers: {
-        refreshApp: (state) =>{
-            state.Cargo_name = ""
-            state.price_filter = '0'
-        },
-        setCargoName: (state, actioin : PayloadAction<string>)=> {
-            state.Cargo_name = actioin.payload
+        // refreshApp: (state) =>{
+        //     state.Cargo_name = ""
+        //     state.price_filter = '0'
+        // },
+        setCargoName: (state, action : PayloadAction<string>)=> {
+            state.Cargo_name = action.payload
         },
         setPriceFilter: (state, action: PayloadAction<string>) =>{
             state.price_filter = (action.payload)
@@ -28,7 +28,7 @@ export const AppSlice = createSlice({
 });
 
 export const {
-    refreshApp,
+    // refreshApp,
     setCargoName,
     setPriceFilter,
 } = AppSlice.actions;

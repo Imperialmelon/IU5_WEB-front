@@ -4,6 +4,7 @@ import {FC} from "react";
 import {Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {Navbar} from "../../components/Navbar";
+import {ImageCarousel} from "./useMainPage.tsx"
 export const MainPage: FC = () => {
     return (
         <>
@@ -17,6 +18,7 @@ export const MainPage: FC = () => {
                             Корпорация SpaceY, используя свои новейшие корабли StarShip, готова осуществить доставку.
                         </p>
                     </Container>
+                    <ImageCarousel />
                     <Link to="/cargo_catalog" className='btn mx-auto btn_ref border border-dark' style={{height:"80px",width: "200px", display: "flex", alignItems: "center", justifyContent: "center"}}>
                     Перейти к Каталогу
 
