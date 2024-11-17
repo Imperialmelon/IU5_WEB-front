@@ -8,9 +8,9 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
             manifest: {
-                name: 'Install Server Software',
-                short_name: 'ISS',
-                description: 'Service for install server software',
+                name: 'CargoMarsDelivery',
+                short_name: 'CMD',
+                description: 'Service for Mars cargo delivery',
                 theme_color: '#ffffff',
                 icons: [
                     {
@@ -48,6 +48,10 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: function (path) { return path.replace(/^\/api/, ""); },
             },
+            "/lab1" : {
+                target: "http://127.0.0.1:9000",
+                changeOrigin: true,
+            }
         },
     },
 });

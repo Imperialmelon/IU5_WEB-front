@@ -2,13 +2,14 @@ import {FC} from "react";
 import "./cart_elem.css"
 import unknownImage from "/images/noimage.webp"
 import {Link} from "react-router-dom";
-
 import { CargoCardProps } from "./typing";
 export const CargoCard: FC<CargoCardProps> = (cargo : CargoCardProps) => {
+
     return (
         <div className="card border border-dark rounded-0 h-100  " style={{width : "100%", paddingLeft : "10px", paddingRight : "10px"}}>
             <img
                 src = {cargo.logo_file_path ? (cargo.logo_file_path) : (unknownImage)}
+
                 className="card-img-top software-card-img "
                 alt={cargo.title}
             />

@@ -5,7 +5,7 @@
 @font-face {
     font-family: "SPX";
     color: red;
-  src: url('http://127.0.0.1:9000/lab1/SpaceX.ttf');}
+  src: url('/lab1/SpaceX.ttf');}
 
   
 .brand-custom{
