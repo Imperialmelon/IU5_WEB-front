@@ -45,6 +45,7 @@ import { CargoPage } from "./pages/CargoPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
 import { ShippingPage } from "./pages/CargoInShippingPage";
 import { LoginPage } from "./pages/LoginPage";
+import { UserPage } from "./pages/UserPage";
 
 export const AppRoutes = () => {
     const routes: RouteObject[] = [
@@ -71,6 +72,10 @@ export const AppRoutes = () => {
         {
             path: "/login",
             element: <LoginPage />,
+        },
+        {
+            path: "/user_account",
+            element: <UserPage/>,
         },
 
     ];

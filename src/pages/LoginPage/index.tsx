@@ -7,7 +7,7 @@ export const LoginPage: FC = () => {
         <>
             <Navbar/>
             <Container className="d-flex justify-content-center align-items-center mt-5 ">
-            <div className="card border-dark rounded-0" style={{width: '100%', maxWidth: '750px'}}>
+            <div className="card border-0" style={{width: '100%', maxWidth: '550px'}}>
             <div className="card-body ">
                 <h5 className="card-title text-center mb-4">Вход</h5>
                 <form>
@@ -35,7 +35,7 @@ export const LoginPage: FC = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn w-100 border-dark rounded-0">
+                    <button type="submit" className="btn change_back_button w-100">
                         Войти
                     </button>
                 </form>

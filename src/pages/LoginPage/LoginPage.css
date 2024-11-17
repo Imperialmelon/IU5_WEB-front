@@ -1,0 +1,19 @@
+.change_back_button {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.5s ease-in-out;
+  }
+  
+  .change_back_button:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+.font{
+    font-family: "Roboto", sans-serif;
+}

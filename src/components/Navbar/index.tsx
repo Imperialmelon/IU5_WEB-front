@@ -58,11 +58,16 @@ export const Navbar: FC = () => {
                             SpaceY
                         </NavLink>
                     </NavbarComp.Brand>
-                    <NavbarComp.Collapse className="justify-content-end"> {/* Перемещён collapse и удалён лишний */}
+                    <NavbarComp.Collapse className="justify-content-end brand-custom"> {/* Перемещён collapse и удалён лишний */}
                     <Nav className="me-auto gap-4 gap-sm-3 fs-4">
                             <NavLink to="/cargo_catalog" className="text-white text-decoration-none font_rob">
                                 Каталог
                             </NavLink>
+                            <Nav className="me-3">
+                            <NavLink to="/user_account" className="text-white text-decoration-none">
+                                Кабинет
+                            </NavLink>
+                        </Nav>
                         </Nav>
                         <Nav className="me-3">
                             <NavLink to="/registration" className="text-white text-decoration-none font_rob">

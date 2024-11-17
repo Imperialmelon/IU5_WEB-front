@@ -31,8 +31,12 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         <Container className="d-flex flex-row justify-content-between">
             <Breadcrumbs endItem="Каталог"/>
             <div className="mt-4 mb-4">
-                <Link to={`/shipping/${ShippingID}/`} style={{textDecorationLine : "None"}}>
-                <Button className="d-flex gap-1 tn bg-white text-dark border-dark align-items-center">
+                <Link to={`/shipping/${ShippingID}/`} style={{textDecorationLine : "None"}}
+                className={ShippingID !=0 ? "" : "disabled disable" }
+                >
+                <Button 
+                className="d-flex gap-1 tn bg-white text-dark border-dark align-items-center "
+                >
                         <span className="ms-2">{Number(ItemsInCart)}</span>
                         {Number(ItemsInCart) != 0 ? (
                             <img src={filled_cart} width="25" alt="cart"/>
