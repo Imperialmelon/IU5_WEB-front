@@ -13,11 +13,14 @@ import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 
 export const useCargoCatalogPage = () => {
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
+    const [ShippingID, setShippingID] = useState<Number>(0)
     // const [CargoName, setSearchCargoName] = useState("");
     // const [price_filter, setPriceFilter] = useState("");
-    const [cnt , setCnt] = useState<Number | null> (null);
+    const [ItemsInCart , setItemsInCart] = useState<Number | null> (null);
     const {Cargo_name, price_filter} = useSelector(selectApp);
     const dispatch = useDispatch();
+    // const Shipping_ID = 0 
+    // const CargosInCart = 0
 
 
 
@@ -26,14 +29,16 @@ export const useCargoCatalogPage = () => {
             .then((data) => {
 
                 setCargoList(data.cargoes);
-                setCnt(data.cnt);
+                setItemsInCart(data.cnt);
+                setShippingID(data.shipping_id)
             })
             .catch(() => {
                 const filteredcargos = CargoList_.filter((cargo) =>
                     cargo.title.toLowerCase().startsWith(Cargo_name.toLowerCase())
                 )
                 setCargoList(filteredcargos);
-                setCnt(null)
+                setItemsInCart(null)
+                setShippingID(0)
             });
     };
     
@@ -47,6 +52,7 @@ export const useCargoCatalogPage = () => {
         getCargoList(Cargo_name, Number(price_filter))
             .then((data) => {
                 setCargoList(data.cargoes)
+                setShippingID(data.shipping_id)
 
         }
         )
@@ -59,6 +65,7 @@ export const useCargoCatalogPage = () => {
             )
 
                 setCargoList(filteredcargos)
+                setShippingID(0)
         }
     )
     }
@@ -74,11 +81,13 @@ export const useCargoCatalogPage = () => {
         getCargoList(Cargo_name, Number(price_filter))
         .then((data) => {
             setCargoList(data.cargoes);
-            setCnt(data.cnt)
+            setItemsInCart(data.cnt)
+            setShippingID(data.shipping_id)
         })
         .catch(() => {
             setCargoList(CargoList_);
-            setCnt(null)
+            setItemsInCart(null)
+            setShippingID(0)
         });
 
     }, []);
@@ -89,8 +98,9 @@ export const useCargoCatalogPage = () => {
         handleSetFilterClick,
         handlePriceFilter,
         Cargo_name,
-        cnt,
+        ItemsInCart,
         price_filter,
+        ShippingID
 
     };
 };

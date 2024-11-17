@@ -10,6 +10,7 @@ import search_image from '/images/search.svg'
 import filled_cart from '/images/box-fill.svg'
 import {useCargoCatalogPage} from "./useCargoCatalogPage.tsx";
 import { CargoCardProps } from "../../components/CargoCart/typing.tsx";
+import { Link } from "react-router-dom";
 export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
     
     const {
@@ -18,9 +19,10 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         handleSearchNameChange,
         handleSetFilterClick,
         handlePriceFilter,
-        cnt,
+        ItemsInCart,
         Cargo_name,
         price_filter,
+        ShippingID,
     } = useCargoCatalogPage();
 
     return (
@@ -29,15 +31,16 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         <Container className="d-flex flex-row justify-content-between">
             <Breadcrumbs endItem="Каталог"/>
             <div className="mt-4 mb-4">
-                <a href={`/request/1`} className="btn border-dark"> 
-                    <div className="d-flex gap-1">
-                        <span className="ms-2">{Number(cnt)}</span>
-                        {Number(cnt) != 0 ? (
+                <Link to={`/shipping/${ShippingID}/`} style={{textDecorationLine : "None"}}>
+                <Button className="d-flex gap-1 tn bg-white text-dark border-dark align-items-center">
+                        <span className="ms-2">{Number(ItemsInCart)}</span>
+                        {Number(ItemsInCart) != 0 ? (
                             <img src={filled_cart} width="25" alt="cart"/>
                         ) : <img src={empty_cart_image} width="25" alt="cart"/>
                         }    
-                    </div>
-                </a>
+                    </Button>
+
+                </Link>
             </div>
         </Container>
         
