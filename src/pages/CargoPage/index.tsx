@@ -3,21 +3,20 @@ import {FC, useEffect, useState} from "react";
 import { CargoPageProps } from "./typing.tsx";
 import {useParams} from "react-router-dom";
 import {Container,Card, Col, Row, Image} from "react-bootstrap";
-import {Cargo} from "../../core/api/cargo_getters/typing.ts";
-import {getCargo} from "../../core/api/cargo_getters/index.ts";
 import {CargoList_} from "../../core/mock/CargoList.ts";
 import unknownImage from "/images/noimage.webp"
 import {Navbar} from "../../components/Navbar/index.tsx";
 import {Breadcrumbs} from "../../components/Breadcrumbs/index.tsx";
-
+import { Cargo } from "../../core/api/Api.ts";
+import { api } from "../../core/api"
 export const CargoPage: FC<CargoPageProps> = () => {
     const {id} = useParams();
     const [CargoData, setCargoData] = useState<Cargo | null>(null);
     useEffect(() => {
         if (id) {
-          getCargo(id)
+          api.cargo.cargoRead(id)
                 .then((data) => {
-                  setCargoData(data);
+                  setCargoData(data.data);
                 })
                 .catch(() => {
                     const cargo = CargoList_.find(

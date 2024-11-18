@@ -14,10 +14,10 @@ export const AppSlice = createSlice({
     name : "appSlice",
     initialState,
     reducers: {
-        // refreshApp: (state) =>{
-        //     state.Cargo_name = ""
-        //     state.price_filter = '0'
-        // },
+        refreshApp: (state) =>{
+            state.Cargo_name = ""
+            state.price_filter = '0'
+        },
         setCargoName: (state, action : PayloadAction<string>)=> {
             state.Cargo_name = action.payload
         },

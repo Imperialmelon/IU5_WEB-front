@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import {Cargo} from "../../core/api/cargo_getters/typing.ts";
+// import {Cargo} from "../../core/api/cargo_getters/typing.ts";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import { IPlanet } from "../../core/api/planets/typing";
-import {getCargoList} from "../../core/api/cargo_getters/index.ts";
+// import {getCargoList} from "../../core/api/cargo_getters/index.ts";
 import { ChangeEvent } from "../../App.typing.tsx";
 import { CargoList_ } from "../../core/mock/CargoList.ts";
 import {selectApp} from "../../core/store/slices/selector";
 import { useSelector, useDispatch } from "react-redux";
 import {setCargoName} from "../../core/store/slices/appSlice.ts";
 import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
+import { api } from "../../core/api"
+
 
 
 export const useCargoCatalogPage = () => {
-    const [CargoList, setCargoList] = useState<Cargo[]>([]);
+    const [CargoList, setCargoList] = useState<object[] | undefined>([]);
     const [ShippingID, setShippingID] = useState<Number>(0)
     // const [CargoName, setSearchCargoName] = useState("");
     // const [price_filter, setPriceFilter] = useState("");
@@ -25,12 +27,14 @@ export const useCargoCatalogPage = () => {
 
 
     const handleSearchCargoClick = () => {
-        getCargoList(Cargo_name,Number(price_filter))
+        // getCargoList(Cargo_name,Number(price_filter))
+        api.cargoes.cargoesList({cargo_name : Cargo_name })
             .then((data) => {
 
-                setCargoList(data.cargoes);
-                setItemsInCart(data.cnt);
-                setShippingID(data.shipping_id)
+                // setCargoList(data.cargoes);
+                setCargoList(data.data.cargo)
+                setItemsInCart(data.data.items_in_cart);
+                setShippingID(Number(data.data.shipping_id))
             })
             .catch(() => {
                 const filteredcargos = CargoList_.filter((cargo) =>
@@ -49,10 +53,10 @@ export const useCargoCatalogPage = () => {
 
     const handleSetFilterClick = () => {
 
-        getCargoList(Cargo_name, Number(price_filter))
+        api.cargoes.cargoesList({cargo_name : Cargo_name, min_price : (price_filter)})
             .then((data) => {
-                setCargoList(data.cargoes)
-                setShippingID(data.shipping_id)
+                setCargoList(data.data.cargo)
+                setShippingID(Number(data.data.shipping_id))
 
         }
         )
@@ -72,17 +76,20 @@ export const useCargoCatalogPage = () => {
 
 
     const handlePriceFilter = (e : ChangeEvent) => {
+        if (e.target.value == ''){
+            e.target.value = '0'
+        }
         dispatch(setPriceFilter(e.target.value))
 
     }
 
     useEffect(() => {
 
-        getCargoList(Cargo_name, Number(price_filter))
+        api.cargoes.cargoesList({cargo_name : Cargo_name, min_price : (price_filter)})
         .then((data) => {
-            setCargoList(data.cargoes);
-            setItemsInCart(data.cnt)
-            setShippingID(data.shipping_id)
+            setCargoList(data.data.cargo)
+            setItemsInCart(data.data.items_in_cart);
+            setShippingID(Number(data.data.shipping_id))
         })
         .catch(() => {
             setCargoList(CargoList_);

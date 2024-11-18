@@ -5,19 +5,22 @@ import { useParams } from "react-router-dom"
 
 import { Navbar } from "../../components/Navbar"
 import { Container } from "react-bootstrap"
-import { getCargo } from "../../core/api/cargo_getters"
+// import { getCargo } from "../../core/api/cargo_getters"
 import { ShippingRequestByIdResponse } from "../../core/api/cargo_getters/typing"
 import { CargoInShippingItem } from "../../core/api/cargo_getters/typing"
 import { CargoInShippingProps } from "../../components/CargoInShippingCard/typing"
 import { CargoInRequestCard } from "../../components/CargoInShippingCard"
 import { Breadcrumbs } from "../../components/Breadcrumbs"
-import { getShippingById } from "../../core/api/cargo_getters"
+// import { getShippingById } from "../../core/api/cargo_getters"
+import { api } from "../../core/api"
+import { ShippingWithInfo, Related } from "../../core/api/Api"
+import { ShippingRequestMock } from "../../core/mock/CargoInShippingMock"
 
 
-function calculateTotalPrice(Cargos? : (CargoInShippingItem | undefined)[]) : number {
+function calculateTotalPrice(Cargos? : (Related | undefined)[]) : number {
     return Cargos?.reduce((total, item) => {
         if (item){
-            return total + item.price_per_ton * item.amount
+            return total + item.cargo.price_per_ton * item.amount
             }
             return total
         }, 0) || 0
@@ -26,15 +29,17 @@ function calculateTotalPrice(Cargos? : (CargoInShippingItem | undefined)[]) : nu
 
     export const ShippingPage: FC = () => {
         const {id} = useParams();
-        const [ShippingContentData, setShippingData] = useState<ShippingRequestByIdResponse>();
+        const [ShippingContentData, setShippingData] = useState<ShippingWithInfo>();
+        // const [ShippingContentData, setShippingData] = useState<ShippingRequestByIdResponse>();
         useEffect(() => {
             if (id) {
-                getShippingById(id)
+                // getShippingById(id)
+                api.shipping.shippingRead(id)
                     .then((data) => {
-                        setShippingData(data);
+                        setShippingData(data.data);
                     })
                     .catch(() => {
-                        setShippingData(undefined)
+                        setShippingData(ShippingRequestMock)
                     });
             }
         }, [id]);
@@ -60,14 +65,14 @@ function calculateTotalPrice(Cargos? : (CargoInShippingItem | undefined)[]) : nu
                     </div>
                     {ShippingContentData?.cargo_list && !!ShippingContentData.cargo_list.length ? (
                         <>
-                            {ShippingContentData.cargo_list.map((cargo, index) => {
+                            {ShippingContentData.cargo_list.map((cargo : Related, index : number) => {
                                 const props: CargoInShippingProps = {
-                                    id: cargo.pk,
-                                    title: cargo.title,
-                                    price_per_ton: String(cargo.price_per_ton),
-                                    logo_file_path: cargo.logo_file_path,
+                                    id: Number(cargo.cargo.pk),
+                                    title: cargo.cargo.title,
+                                    price_per_ton: String(cargo.cargo.price_per_ton),
+                                    logo_file_path: cargo.cargo.logo_file_path,
                                     amount : String(cargo.amount),
-                                    price_of_card : String(cargo.price_per_ton * cargo.amount)
+                                    price_of_card : String(cargo.cargo.price_per_ton * cargo.amount)
                                 };
                                 return (
                                     <CargoInRequestCard key={index} {...props} />

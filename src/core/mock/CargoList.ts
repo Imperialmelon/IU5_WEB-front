@@ -1,4 +1,4 @@
-import {Cargo} from "../api/cargo_getters/typing.ts";
+import { Cargo } from "../api/Api";
 
 export const CargoList_: Cargo[] = [
     {
