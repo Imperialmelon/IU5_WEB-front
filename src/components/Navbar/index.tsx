@@ -63,10 +63,15 @@ export const Navbar: FC = () => {
                             <NavLink to="/cargo_catalog" className="text-white text-decoration-none font_rob">
                                 Каталог
                             </NavLink>
-                            <Nav className="me-3">
+                            <Nav className="me-auto gap-4 gap-sm-3 fs-4 brand-custom">
                             <NavLink to="/user_account" className="text-white text-decoration-none">
                                 Кабинет
                             </NavLink>
+                            <Nav className="me-auto gap-4 gap-sm-3 fs-4 brand-custom">
+                            <NavLink to="/shipping_list" className="text-white text-decoration-none">
+                                Отправления
+                            </NavLink>
+                        </Nav>
                         </Nav>
                         </Nav>
                         <Nav className="me-3">
