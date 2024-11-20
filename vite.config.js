@@ -39,15 +39,34 @@ export default defineConfig({
             }
         })
     ],
-    base: "/IU5_WEB-front/",
     server: {
         port: 3000,
         proxy: {
-            "/api": {
-                target: "http://localhost:8000",
-                changeOrigin: true,
-                rewrite: function (path) { return path.replace(/^\/api/, ""); },
-            },
-        },
+         "/api": {
+          target: "http://192.168.1.75:8000",
+          changeOrigin: true,
+          rewrite: function (path) {
+           return path.replace(/^\/api/, "");
+          },
+          secure: false
+         },
+         "/lab1": {
+          target: "http://192.168.1.75:9000",
+          changeOrigin: true,
+          secure: false
+         }
+        }
+       },
+       
+    envPrefix: ['VITE_', 'TAURI_ENV_*'],
+    build: {
+        // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+        target: process.env.TAURI_ENV_PLATFORM == 'windows'
+            ? 'chrome105'
+            : 'safari13',
+        // don't minify for debug builds
+        minify: !process.env.TAURI_ENV_DEBUG ? 'esbuild' : false,
+        // produce sourcemaps for debug builds
+        sourcemap: !!process.env.TAURI_ENV_DEBUG,
     },
 });

@@ -3,8 +3,8 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devPath": "http://<your_ip>/IU5_WEB-front/",
-    "distDir": "../build",
+    "devPath": "http://192.168.56.1:3000/",
+    "distDir": "../dist",
     "withGlobalTauri": true
   },
   "package": {
@@ -30,7 +30,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri.appl",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

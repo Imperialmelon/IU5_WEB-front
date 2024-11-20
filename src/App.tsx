@@ -24,7 +24,7 @@ function App() {
     }, []);
 
     return (
-        <BrowserRouter basename="/IU5_WEB-front">
+        <BrowserRouter>
             <Provider store={store}>
                 <AppRoutes  />
             </Provider>

@@ -71,10 +71,11 @@ export const useSoftwareCatalogPage = () => {
     }
 
     useEffect(() => {
-
+        
         getCargoList(Cargo_name, Number(price_filter))
         .then((data) => {
             setCargoList(data.cargoes);
+            alert(data.cnt)
             setCnt(data.cnt)
         })
         .catch(() => {
