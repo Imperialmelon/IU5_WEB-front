@@ -642,27 +642,19 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     shippingsList: (
       query?: {
-        /** status */
         status?: string;
-        /**
-         * status
-         * @format date-time
-         */
         formation_start?: string;
-        /**
-         * status
-         * @format date-time
-         */
         formation_end?: string;
       },
       params: RequestParams = {},
     ) =>
       this.request<Shipping[], void>({
-        path: `/shippings`,
+        path: '/shippings', // Added leading slash for clarity
         method: "GET",
         query: query,
         secure: true,
         format: "json",
+        timeout: 1000, // Added timeout in milliseconds (1 second)
         ...params,
       }),
   };
