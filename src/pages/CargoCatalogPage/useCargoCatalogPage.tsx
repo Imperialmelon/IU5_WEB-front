@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-// import {Cargo} from "../../core/api/cargo_getters/typing.ts";
-// import { useLocation, useNavigate } from "react-router-dom";
-// import { IPlanet } from "../../core/api/planets/typing";
-// import {getCargoList} from "../../core/api/cargo_getters/index.ts";
 import { ChangeEvent } from "../../App.typing.tsx";
 import { CargoList_ } from "../../core/mock/CargoList.ts";
 import {selectApp} from "../../core/store/slices/selector";

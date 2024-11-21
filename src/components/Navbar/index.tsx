@@ -4,6 +4,11 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavbarComp from "react-bootstrap/Navbar";
 import { NavLink} from "react-router-dom";
+import { selectUser } from "../../core/store/slices/selector";
+import { useDispatch, UseDispatch, useSelector } from "react-redux";
+import { api } from "../../core/api";
+import { refreshUser } from "../../core/store/slices/userSlice";
+import { S } from "@vite-pwa/assets-generator/dist/shared/assets-generator.5e51fd40.mjs";
 
 // export const Navbar: FC = () => {
 //     return (
@@ -49,6 +54,13 @@ import { NavLink} from "react-router-dom";
 // };
 
 export const Navbar: FC = () => {
+    const {username, Is_Auth} = useSelector(selectUser)
+    const dispatch = useDispatch()
+    const logout = () =>{
+        api.user.userLogoutCreate().then(() => console.log('ok'))
+        .catch(error => console.log(error))
+        dispatch(refreshUser())
+    }
     return (
         <>
             <NavbarComp expand="lg" data-bs-theme="dark" className="dark-blue-back" style={{ height: "90px" }}>
@@ -74,7 +86,23 @@ export const Navbar: FC = () => {
                         </Nav>
                         </Nav>
                         </Nav>
-                        <Nav className="me-3">
+                        {Is_Auth ? 
+                        (
+                            <>
+                            <Nav className="me-3">
+                            <NavLink to="/user_account" className="text-white text-decoration-none">
+                            {username}
+                            </NavLink>
+                            </Nav>
+                            <Nav className="me-3">
+                                    <NavLink to="/cargo_catalog" onClick={logout} className="text-white text-decoration-none">
+                                        Выход
+                                    </NavLink>
+                                </Nav>
+                            </>
+                        ) : (
+                            <>
+                                       <Nav className="me-3">
                             <NavLink to="/registration" className="text-white text-decoration-none font_rob">
                                 Регистрация
                             </NavLink>
@@ -84,6 +112,10 @@ export const Navbar: FC = () => {
                                 Вход
                             </NavLink>
                         </Nav>
+                            </>
+                        )
+                        }
+
                     </NavbarComp.Collapse>
                 </Container>
             </NavbarComp>

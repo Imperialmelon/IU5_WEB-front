@@ -1,8 +1,49 @@
 import "./LoginPage.css";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Container} from "react-bootstrap";
 import {Navbar} from "../../components/Navbar";
+import { LoginDataProps } from "./typing";
+import { ChangeEvent } from "../../App.typing";
+import { api } from "../../core/api";
+import { useDispatch, UseDispatch } from "react-redux";
+import { saveUser } from "../../core/store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
+
 export const LoginPage: FC = () => {
+    const navigate = useNavigate()
+    const [LoginData, setLoginData] = useState<LoginDataProps>({
+        username: "",
+        password : ""
+    })
+    const [FailedLogin, setFailedLogin] = useState<string>('')
+
+    const handleLoginChange = (e : ChangeEvent) =>{
+        const event = e.target
+        const {value, id} = event
+        setLoginData(prevData => ({
+            ...prevData,
+            [id]: value
+        }));
+    }
+
+    const dispatch = useDispatch()
+
+    const clickLogin = () => {
+        if (LoginData.password && LoginData.username){
+            api.user.userLoginCreate(LoginData)
+            .then(() =>{
+                dispatch(saveUser({
+                    username :  LoginData.username,
+                    Is_Auth : true
+                }))
+                navigate('/cargo_catalog')
+            })
+            .catch((data) => {
+                setFailedLogin(data)
+            })
+        }
+    }
+
     return (
         <>
             <Navbar/>
@@ -20,6 +61,8 @@ export const LoginPage: FC = () => {
                             id="username"
                             className="form-control border-dark rounded-0"
                             placeholder="Организация"
+                            value={LoginData.username}
+                            onChange={handleLoginChange}
                             required
                         />
                     </div>
@@ -32,12 +75,16 @@ export const LoginPage: FC = () => {
                             id="password"
                             className="form-control border-dark rounded-0"
                             placeholder="Введите пароль"
+                            value={LoginData.password}
+                            onChange={handleLoginChange}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn change_back_button w-100">
+                    <button type="button" className="btn change_back_button w-100"
+                    onClick={clickLogin}>
                         Войти
                     </button>
+                    {FailedLogin == '' ? <span>{FailedLogin}</span> : ''}
                 </form>
             </div>
         </div>

@@ -83,7 +83,7 @@ export const useShippingListPage = () => {
             case "REJECTED":
                 return "Отклонено";
             default:
-                return "Неизвестно";
+                return "В работе заказчика";
         }
     }
 
