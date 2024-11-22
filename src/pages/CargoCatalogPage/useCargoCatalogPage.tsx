@@ -7,10 +7,10 @@ import {setCargoName} from "../../core/store/slices/appSlice.ts";
 import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 import { api } from "../../core/api"
 
-
+import { Cargo } from "../../core/api/Api.ts";
 
 export const useCargoCatalogPage = () => {
-    const [CargoList, setCargoList] = useState<object[] | undefined>([]);
+    const [CargoList, setCargoList] = useState<Cargo[]>([]);
     const [ShippingID, setShippingID] = useState<Number>(0)
     // const [CargoName, setSearchCargoName] = useState("");
     // const [price_filter, setPriceFilter] = useState("");
@@ -23,16 +23,18 @@ export const useCargoCatalogPage = () => {
 
 
     const handleSearchCargoClick = () => {
+        console.log('started')
         // getCargoList(Cargo_name,Number(price_filter))
         api.cargoes.cargoesList({cargo_name : Cargo_name })
             .then((data) => {
-
+                console.log('good')
                 // setCargoList(data.cargoes);
                 setCargoList(data.data.cargo)
                 setItemsInCart(data.data.items_in_cart);
                 setShippingID(Number(data.data.shipping_id))
             })
             .catch(() => {
+                console.log('bad')
                 const filteredcargos = CargoList_.filter((cargo) =>
                     cargo.title.toLowerCase().startsWith(Cargo_name.toLowerCase())
                 )
@@ -79,27 +81,14 @@ export const useCargoCatalogPage = () => {
 
     }
 
-    useEffect(() => {
-
-        api.cargoes.cargoesList({cargo_name : Cargo_name, min_price : (price_filter)})
-        .then((data) => {
-            setCargoList(data.data.cargo)
-            setItemsInCart(data.data.items_in_cart);
-            setShippingID(Number(data.data.shipping_id))
-        })
-        .catch(() => {
-            setCargoList(CargoList_);
-            setItemsInCart(null)
-            setShippingID(0)
-        });
-
-    }, []);
+    useEffect(handleSearchCargoClick, []);
     return {
         CargoList,
         handleSearchCargoClick,
         handleSearchNameChange,
         handleSetFilterClick,
         handlePriceFilter,
+        updateCatalogPage : handleSearchCargoClick,
         Cargo_name,
         ItemsInCart,
         price_filter,

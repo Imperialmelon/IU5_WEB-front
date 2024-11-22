@@ -11,10 +11,12 @@ import filled_cart from '/images/box-fill.svg'
 import {useCargoCatalogPage} from "./useCargoCatalogPage.tsx";
 import { CargoCardProps } from "../../components/CargoCart/typing.tsx";
 import { Link } from "react-router-dom";
+
 export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
     
     const {
         CargoList,
+        updateCatalogPage,
         handleSearchCargoClick,
         handleSearchNameChange,
         handleSetFilterClick,
@@ -97,11 +99,12 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
                     {CargoList.map((cargo, ind) => {
                         const props: CargoCardProps = {
-                            id: cargo.pk,
+                            id: Number(cargo.pk),
                             title: cargo.title,
                             short_descr: cargo.description,
                             price_per_ton: cargo.price_per_ton,
-                            logo_file_path: cargo.logo_file_path,
+                            logo_file_path: cargo.logo_file_path || '',
+                            updateCatalogPage : handleSearchCargoClick
                         };
                         return (
                             <div className="col" key={ind}>

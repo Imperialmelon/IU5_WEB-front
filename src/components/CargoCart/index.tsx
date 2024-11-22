@@ -3,7 +3,25 @@ import "./cart_elem.css"
 import unknownImage from "/images/noimage.webp"
 import {Link} from "react-router-dom";
 import { CargoCardProps } from "./typing";
+import { store } from "../../core/store";
+import { useSelector, UseSelector } from "react-redux";
+import { api } from "../../core/api";
+import { selectUser } from "../../core/store/slices/selector";
 export const CargoCard: FC<CargoCardProps> = (cargo : CargoCardProps) => {
+    const {Is_Auth} = useSelector(selectUser)
+
+
+    const clickAddCargo = () => {
+        api.cargo.cargoAddToShippingCreate(cargo.id.toString())
+        .then((data) =>{
+            console.log(data)
+            cargo.updateCatalogPage()
+
+        })
+        .catch(() => {
+            console.log('error')})
+    }
+
 
     return (
         <div className="card border border-dark rounded-0 h-100  " style={{width : "100%", paddingLeft : "10px", paddingRight : "10px"}}>
@@ -24,9 +42,13 @@ export const CargoCard: FC<CargoCardProps> = (cargo : CargoCardProps) => {
                 
             </ul>
             <div className="card-body d-flex justify-content-between ">
-                <a href={`/cargo/${cargo.id}/add`} className="btn mx-auto btn_add rounded-0">
-                    Добавить в отправление
-                </a>
+                {Is_Auth ? 
+                <button className="btn  mx-auto rounded-0 btn_add "
+                onClick={clickAddCargo}>Добавить в отправление</button>
+                : <></>
+                }
+
+                    
                 <Link
                     to={'/cargo/' + cargo.id}
                     id = {cargo.title}

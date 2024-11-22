@@ -266,7 +266,7 @@ export class HttpClient<SecurityDataType = unknown> {
   private format?: ResponseType;
 
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
-    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://127.0.0.1:8000" });
+    this.instance = axios.create({ ...axiosConfig, baseURL: axiosConfig.baseURL || "http://192.168.1.75:8000" });
     this.secure = secure;
     this.format = format;
     this.securityWorker = securityWorker;
@@ -359,7 +359,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @title Mars cargo delivery API
  * @version v1
  * @license SAPCE Y License
- * @baseUrl http://127.0.0.1:8000
+ * @baseUrl http://192.168.1.75:8000
  * @contact <spacey@google.com>
  *
  * API for Mars cargo delivery
@@ -402,24 +402,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description создать новое отправление или добавить туда груз
-     *
-     * @tags cargo
-     * @name CargoAddCreate2
-     * @request POST:/cargo/{id}/add
-     * @originalName cargoAddCreate
-     * @duplicate
-     * @secure
-     */
-    cargoAddCreate2: (id: string, params: RequestParams = {}) =>
-      this.request<void, void>({
-        path: `/cargo/${id}/add`,
-        method: "POST",
-        secure: true,
-        ...params,
-      }),
-
-    /**
      * @description загрузить картинку в минио
      *
      * @tags cargo
@@ -444,6 +426,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         type: ContentType.FormData,
+        ...params,
+      }),
+
+    /**
+     * @description создать новое отправление или добавить туда груз
+     *
+     * @tags cargo
+     * @name CargoAddToShippingCreate
+     * @request POST:/cargo/{id}/add_to_shipping
+     * @secure
+     */
+    cargoAddToShippingCreate: (id: string, params: RequestParams = {}) =>
+      this.request<void, void>({
+        path: `/cargo/${id}/add_to_shipping`,
+        method: "POST",
+        secure: true,
         ...params,
       }),
   };
@@ -642,19 +640,27 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     shippingsList: (
       query?: {
+        /** status */
         status?: string;
+        /**
+         * status
+         * @format date-time
+         */
         formation_start?: string;
+        /**
+         * status
+         * @format date-time
+         */
         formation_end?: string;
       },
       params: RequestParams = {},
     ) =>
       this.request<Shipping[], void>({
-        path: '/shippings', // Added leading slash for clarity
+        path: `/shippings`,
         method: "GET",
         query: query,
         secure: true,
         format: "json",
-        timeout: 1000, // Added timeout in milliseconds (1 second)
         ...params,
       }),
   };

@@ -15,7 +15,8 @@ export const LoginPage: FC = () => {
         username: "",
         password : ""
     })
-    const [FailedLogin, setFailedLogin] = useState<string>('')
+    const [error, setError] = useState(''); // Состояние для сообщения об ошибке
+
 
     const handleLoginChange = (e : ChangeEvent) =>{
         const event = e.target
@@ -24,11 +25,13 @@ export const LoginPage: FC = () => {
             ...prevData,
             [id]: value
         }));
+        setError('');
     }
 
     const dispatch = useDispatch()
 
     const clickLogin = () => {
+        setError('')
         if (LoginData.password && LoginData.username){
             api.user.userLoginCreate(LoginData)
             .then(() =>{
@@ -39,7 +42,14 @@ export const LoginPage: FC = () => {
                 navigate('/cargo_catalog')
             })
             .catch((data) => {
-                setFailedLogin(data)
+                if (data.status == 400) {
+                    
+                setError('Неверные данные')
+                }
+                else {
+                    setError('Сервер временно недоступен')
+                }
+
             })
         }
     }
@@ -51,6 +61,7 @@ export const LoginPage: FC = () => {
             <div className="card border-0" style={{width: '100%', maxWidth: '550px'}}>
             <div className="card-body ">
                 <h5 className="card-title text-center mb-4">Вход</h5>
+                {error && <div className="alert alert-danger" role="alert">{error}</div>} {/* Отображение сообщения об ошибке */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">
@@ -84,7 +95,6 @@ export const LoginPage: FC = () => {
                     onClick={clickLogin}>
                         Войти
                     </button>
-                    {FailedLogin == '' ? <span>{FailedLogin}</span> : ''}
                 </form>
             </div>
         </div>

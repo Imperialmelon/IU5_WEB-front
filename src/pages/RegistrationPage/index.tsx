@@ -22,10 +22,12 @@ export const RegistrationPage: FC = () => {
             ...prevData,
             [id]: value
         }));
+        setFailedReg('')
     }
 
 
     const clickReg = () => {
+        setFailedReg('')
         if (RegData.username && RegData.password){
             api.user.userCreateCreate(RegData).then(
                 (data) => {
@@ -33,7 +35,13 @@ export const RegistrationPage: FC = () => {
                 }
             )
             .catch((data) => {
-                setFailedReg(data)
+                if (data.status == 400){
+                    setFailedReg('Данные некорреткны или такой пользователь уже существует')
+                }
+                else{
+                    setFailedReg('Сервер временно недоступен')
+                }
+ 
             })
         }
     }
@@ -44,6 +52,7 @@ export const RegistrationPage: FC = () => {
             <div className="card border-0" style={{width: '100%', maxWidth: '550px'}}>
             <div className="card-body">
                 <h5 className="card-title text-center mb-4">Регистрация</h5>
+                {FailedReg && <div className="alert alert-danger" role="alert">{FailedReg}</div>} {/* Отображение сообщения об ошибке */}
                 <form>
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">
@@ -91,7 +100,6 @@ export const RegistrationPage: FC = () => {
                     onClick={clickReg}>
                         Зарегистрироваться
                     </button>
-                    {FailedReg == '' ? <span>{FailedReg}</span> : ''}
                 </form>
             </div>
         </div>
