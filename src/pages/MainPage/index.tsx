@@ -2,7 +2,6 @@ import "./MainPage.css";
 import {FC} from "react";
 // import { IMainPageProps } from "./typing";
 import {Container} from "react-bootstrap";
-import {Link} from "react-router-dom";
 import {Navbar} from "../../components/Navbar";
 import {ImageCarousel} from "./useMainPage.tsx"
 export const MainPage: FC = () => {
@@ -19,10 +18,6 @@ export const MainPage: FC = () => {
                         </p>
                     </Container>
                     <ImageCarousel />
-                    <Link to="/cargo_catalog" className='btn mx-auto btn_ref border border-dark' style={{height:"80px",width: "200px", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    Перейти к Каталогу
-
-                    </Link>
                 </Container>
             </Container>
         </>

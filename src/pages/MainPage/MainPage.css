@@ -16,24 +16,63 @@
     padding-inline: 70px;
     display: flex;
 }
+.adaptive-carousel {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #343a40;
+    border-radius: 0.3rem;
+  }
+  
+  .adaptive-carousel .carousel-item {
+    position: relative;
+    height: 0;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  }
+  
+  .adaptive-carousel .carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.3rem;
+  }
 @media (min-width: 1200px) {
+      .adaptive-carousel {
+    max-width: 100%;
+  }
 }
-@media (max-width: 1200px) {
-}
+
 @media (max-width: 992px) {
     .intro {
         width: 70%;
     }
+    .adaptive-carousel {
+        max-width: 95%;
+      }
 }
 @media (max-width: 768px) {
     .intro {
         width: 80%;
     }
+    .adaptive-carousel {
+        max-width: 100%;
+      }
+      .adaptive-carousel .carousel-item {
+        padding-top: 75%; /* 4:3 Aspect Ratio для мобильных устройств */
+      }
+      
 }
 @media (max-width: 576px) {
     .intro {
         width: 90%;
     }
+
+      .adaptive-carousel .carousel-item {
+        padding-top: 100%; /* 1:1 Aspect Ratio для очень маленьких экранов */
+      }
 }
 
 
