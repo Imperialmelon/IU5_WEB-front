@@ -109,6 +109,13 @@ export interface ShippingWithInfo {
    */
   organization: string;
   cargo_list: Related[];
+  /** Status */
+  status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
+  /**
+   * Formation datetime
+   * @format date-time
+   */
+  formation_datetime?: string | null;
 }
 
 export interface AddingToShipping {
