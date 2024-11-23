@@ -24,7 +24,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         ItemsInCart,
         Cargo_name,
         price_filter,
-        ShippingID,
+        Shipping_id,
     } = useCargoCatalogPage();
 
     return (
@@ -33,8 +33,8 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         <Container className="d-flex flex-row justify-content-between">
             <Breadcrumbs endItem="Каталог"/>
             <div className="mt-4 mb-4">
-                <Link to={`/shipping/${ShippingID}/`} style={{textDecorationLine : "None"}}
-                className={ShippingID !=0 ? "" : "disabled disable" }
+                <Link to={`/shipping/${Shipping_id}/`} style={{textDecorationLine : "None"}}
+                className={Shipping_id !=0 ? "" : "disabled disable" }
                 >
                 <Button 
                 className="d-flex gap-1 tn bg-white text-dark border-dark align-items-center "

@@ -6,8 +6,12 @@ import NavbarComp from "react-bootstrap/Navbar";
 import { NavLink} from "react-router-dom";
 import { selectUser } from "../../core/store/slices/selector";
 import { useDispatch, UseDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { api } from "../../core/api";
+import { refreshApp } from "../../core/store/slices/appSlice";
+import { setShippingData } from "../../core/store/slices/appSlice";
 import { refreshUser } from "../../core/store/slices/userSlice";
+import {selectApp} from "../../core/store/slices/selector";
 import { S } from "@vite-pwa/assets-generator/dist/shared/assets-generator.5e51fd40.mjs";
 
 // export const Navbar: FC = () => {
@@ -55,9 +59,25 @@ import { S } from "@vite-pwa/assets-generator/dist/shared/assets-generator.5e51f
 
 export const Navbar: FC = () => {
     const {username, Is_Auth} = useSelector(selectUser)
+    const {Shipping_id} = useSelector(selectApp);
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const logout = () =>{
-        api.user.userLogoutCreate().then(() => console.log('ok'))
+        api.shipping.shippingDeleteDelete(Shipping_id.toString()).then(() => {console.log('ok')
+            
+            api.user.userLogoutCreate().then(() =>{
+                console.log('yeeeeeeeeeeeee')
+                dispatch(setShippingData(0))
+                console.log(Shipping_id)
+                navigate('/')
+            })
+            .catch(()=> {console.log('noooooooooooo')})
+            
+
+
+        }
+    
+    )
         .catch(error => console.log(error))
         dispatch(refreshUser())
     }

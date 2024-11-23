@@ -6,16 +6,16 @@ import { useSelector, useDispatch } from "react-redux";
 import {setCargoName} from "../../core/store/slices/appSlice.ts";
 import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 import { api } from "../../core/api"
-
+import { setShippingData } from "../../core/store/slices/appSlice.ts";
 import { Cargo } from "../../core/api/Api.ts";
 
 export const useCargoCatalogPage = () => {
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
-    const [ShippingID, setShippingID] = useState<Number>(0)
+    // const [ShippingID, setShippingID] = useState<Number>(0)
     // const [CargoName, setSearchCargoName] = useState("");
     // const [price_filter, setPriceFilter] = useState("");
     const [ItemsInCart , setItemsInCart] = useState<Number | null> (null);
-    const {Cargo_name, price_filter} = useSelector(selectApp);
+    const {Cargo_name, price_filter, Shipping_id} = useSelector(selectApp);
     const dispatch = useDispatch();
     // const Shipping_ID = 0 
     // const CargosInCart = 0
@@ -31,7 +31,8 @@ export const useCargoCatalogPage = () => {
                 // setCargoList(data.cargoes);
                 setCargoList(data.data.cargo)
                 setItemsInCart(data.data.items_in_cart);
-                setShippingID(Number(data.data.shipping_id))
+                // setShippingID(Number(data.data.shipping_id))
+                dispatch(setShippingData(Number(data.data.shipping_id)))
             })
             .catch(() => {
                 console.log('bad')
@@ -40,10 +41,14 @@ export const useCargoCatalogPage = () => {
                 )
                 setCargoList(filteredcargos);
                 setItemsInCart(null)
-                setShippingID(0)
+                // setShippingID(0)
+                dispatch(setShippingData(0))
             });
     };
     
+
+
+
     const handleSearchNameChange = (e: ChangeEvent) => {
         // setSearchCargoName(e.target.value);
         dispatch(setCargoName(e.target.value))
@@ -54,7 +59,8 @@ export const useCargoCatalogPage = () => {
         api.cargoes.cargoesList({cargo_name : Cargo_name, min_price : (price_filter)})
             .then((data) => {
                 setCargoList(data.data.cargo)
-                setShippingID(Number(data.data.shipping_id))
+                // setShippingID(Number(data.data.shipping_id))
+                dispatch(setShippingData(Number(data.data.shipping_id)))
 
         }
         )
@@ -67,7 +73,8 @@ export const useCargoCatalogPage = () => {
             )
 
                 setCargoList(filteredcargos)
-                setShippingID(0)
+                // setShippingID(0)
+                dispatch(setShippingData(0))
         }
     )
     }
@@ -92,7 +99,7 @@ export const useCargoCatalogPage = () => {
         Cargo_name,
         ItemsInCart,
         price_filter,
-        ShippingID
+        Shipping_id
 
     };
 };

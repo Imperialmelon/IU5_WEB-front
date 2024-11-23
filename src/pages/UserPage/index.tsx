@@ -1,8 +1,46 @@
 import "./UserPage.css";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Container} from "react-bootstrap";
 import {Navbar} from "../../components/Navbar";
+import { api } from "../../core/api";
+import { UserAccountData } from "./typing";
+import { ChangeEvent } from "../../App.typing";
+import { selectUser } from "../../core/store/slices/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { saveUser } from "../../core/store/slices/userSlice";
+
+
 export const UserPage: FC = () => {
+    const {username, Is_Auth} = useSelector(selectUser)
+    const user_name = username
+    const [UserData, setUserData] = useState<UserAccountData>({
+        username : user_name,
+        email : undefined,
+        password : undefined
+    })
+    const dispath = useDispatch()
+
+
+    const handleChangeData = (e : ChangeEvent) => {
+        const {id, value} = e.target
+        const yy = UserData
+        setUserData((prevState) => ({...prevState, [id]: value}))
+
+            
+
+    }
+
+    const handleUpdateData = () =>{
+        console.log(UserData)
+        api.user.userUpdateUpdate(UserData)
+        .then(() => {
+            console.log('updated')
+        })
+        .catch(() => {
+            console.log('not updated')
+        })
+    }
+
     return (
         <>
             <Navbar/>
@@ -11,17 +49,7 @@ export const UserPage: FC = () => {
             <div className="card-body">
                 <h5 className="card-title text-center mb-4">Изменить данные аккаунта</h5>
                 <form>
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">
-                            Организация
-                        </label>
-                        <input
-                            type="text"
-                            id="username"
-                            className="form-control border border-dark rounded-0"
-                            placeholder="Введите новый логин"
-                        />
-                    </div>
+
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">
                             E-mail
@@ -31,6 +59,8 @@ export const UserPage: FC = () => {
                             id="email"
                             className="form-control border border-dark rounded-0"
                             placeholder="Введите новый e-mail"
+                            onChange={handleChangeData}
+                            value={UserData.email}
                         />
                     </div>
                     <div className="mb-3">
@@ -42,9 +72,11 @@ export const UserPage: FC = () => {
                             id="password"
                             className="form-control border border-dark rounded-0"
                             placeholder="Введите новый пароль"
+                            onChange={handleChangeData}
+                            value={UserData.password}
                         />
                     </div>
-                    <button type="submit" className="btn change_back_button w-100">
+                    <button type="button" onClick={handleUpdateData} className="btn change_back_button w-100">
                         Изменить
                     </button>
                 </form>

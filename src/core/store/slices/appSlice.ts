@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { act } from "react";
 export interface AppData{
     Cargo_name : string
     price_filter : string
     filterStatus? : string
     filterStartDate? : string
     filterEndDate? : string
+    Shipping_id : number
 }
 
 const initialState : AppData =  {
@@ -13,6 +15,7 @@ const initialState : AppData =  {
     filterStatus: undefined,
     filterStartDate: undefined,
     filterEndDate: undefined,
+    Shipping_id : 0
 
 
 }
@@ -27,6 +30,7 @@ export const AppSlice = createSlice({
             state.filterStatus = undefined,
             state.filterStartDate =  undefined,
             state.filterEndDate = undefined
+            state.Shipping_id = 0
         },
         setCargoName: (state, action : PayloadAction<string>)=> {
             state.Cargo_name = action.payload
@@ -42,6 +46,10 @@ export const AppSlice = createSlice({
         },
         setFilterEndDate: (state, action :PayloadAction<string> ) =>{
             state.filterEndDate = action.payload
+        },
+        setShippingData : (state, action : PayloadAction<number>) =>{
+            state.Shipping_id = action.payload
+            console.log( state.Shipping_id)
         }
     }
 });
@@ -53,5 +61,6 @@ export const {
     setPriceFilter,
     setFilterStatus,
     setFilterStartDate,
-    setFilterEndDate
+    setFilterEndDate,
+    setShippingData
 } = AppSlice.actions;
