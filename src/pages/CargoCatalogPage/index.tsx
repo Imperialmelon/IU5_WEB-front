@@ -11,6 +11,8 @@ import filled_cart from '/images/box-fill.svg'
 import {useCargoCatalogPage} from "./useCargoCatalogPage.tsx";
 import { CargoCardProps } from "../../components/CargoCart/typing.tsx";
 import { Link } from "react-router-dom";
+import { Animation } from "../../components/Animation/index.tsx";
+import { HashLoader } from "react-spinners";
 
 export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
     
@@ -25,6 +27,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
         Cargo_name,
         price_filter,
         Shipping_id,
+        IsActive,
     } = useCargoCatalogPage();
 
     return (
@@ -94,7 +97,9 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                     </div>
                 </div>
             </div>
-    
+            {
+                IsActive ? <>
+                
             {CargoList && !!CargoList.length ? (
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 w-100">
                     {CargoList.map((cargo, ind) => {
@@ -112,12 +117,26 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                             </div>
                         );
                     })}
+
+
+
+
+
                 </div>
-            ) : (
-                <Container className="d-flex justify-content-center mt-4 mb-5">
-                    <h2>Ничего не найдено</h2>
-                </Container>
-            )}
+            ) :( <Container className="d-flex justify-content-center mt-4 mb-5">
+            <h2>Ничего не найдено</h2>
+        </Container>)}
+
+                </>
+                :  <>
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }} >
+                <HashLoader size={95} />
+                </div>
+                      
+                    </>
+            } 
+    
+          
             </Container>
         </>
         );

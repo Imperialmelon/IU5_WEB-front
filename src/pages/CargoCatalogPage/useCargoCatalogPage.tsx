@@ -10,6 +10,7 @@ import { setShippingData } from "../../core/store/slices/appSlice.ts";
 import { Cargo } from "../../core/api/Api.ts";
 
 export const useCargoCatalogPage = () => {
+    const [IsActive, setIsActive] = useState<boolean>(false)
     const [CargoList, setCargoList] = useState<Cargo[]>([]);
     // const [ShippingID, setShippingID] = useState<Number>(0)
     // const [CargoName, setSearchCargoName] = useState("");
@@ -24,6 +25,7 @@ export const useCargoCatalogPage = () => {
 
     const handleSearchCargoClick = () => {
         console.log('started')
+        setIsActive(false)
         // getCargoList(Cargo_name,Number(price_filter))
         api.cargoes.cargoesList({cargo_name : Cargo_name })
             .then((data) => {
@@ -31,6 +33,7 @@ export const useCargoCatalogPage = () => {
                 // setCargoList(data.cargoes);
                 setCargoList(data.data.cargo)
                 setItemsInCart(data.data.items_in_cart);
+                setIsActive(true)
                 // setShippingID(Number(data.data.shipping_id))
                 dispatch(setShippingData(Number(data.data.shipping_id)))
             })
@@ -40,6 +43,7 @@ export const useCargoCatalogPage = () => {
                     cargo.title.toLowerCase().startsWith(Cargo_name.toLowerCase())
                 )
                 setCargoList(filteredcargos);
+                setIsActive(true)
                 setItemsInCart(null)
                 // setShippingID(0)
                 dispatch(setShippingData(0))
@@ -99,7 +103,8 @@ export const useCargoCatalogPage = () => {
         Cargo_name,
         ItemsInCart,
         price_filter,
-        Shipping_id
+        Shipping_id,
+        IsActive
 
     };
 };
