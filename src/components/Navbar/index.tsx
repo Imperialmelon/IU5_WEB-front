@@ -63,12 +63,14 @@ export const Navbar: FC = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const logout = () =>{
+        if (Shipping_id != 0 ){
         api.shipping.shippingDeleteDelete(Shipping_id.toString()).then(() => {console.log('ok')
             
             api.user.userLogoutCreate().then(() =>{
                 console.log('yeeeeeeeeeeeee')
                 dispatch(setShippingData(0))
                 console.log(Shipping_id)
+                dispatch(refreshUser())
                 navigate('/')
             })
             .catch(()=> {console.log('noooooooooooo')})
@@ -79,7 +81,19 @@ export const Navbar: FC = () => {
     
     )
         .catch(error => console.log(error))
+}
+else {
+    api.user.userLogoutCreate().then(() =>{
+        console.log('yeeeeeeeeeeeee')
+        dispatch(setShippingData(0))
+        console.log(Shipping_id)
         dispatch(refreshUser())
+
+        navigate('/')
+    })
+    .catch(()=> {console.log('noooooooooooo')})
+}
+        
     }
     return (
         <>

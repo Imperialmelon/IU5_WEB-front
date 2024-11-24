@@ -8,6 +8,7 @@ import { ChangeEvent } from "../../App.typing";
 import { selectUser } from "../../core/store/slices/selector";
 import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from "../../core/store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 
 export const UserPage: FC = () => {
@@ -19,6 +20,7 @@ export const UserPage: FC = () => {
         password : undefined
     })
     const dispath = useDispatch()
+    const navigate = useNavigate()
 
 
     const handleChangeData = (e : ChangeEvent) => {
@@ -32,9 +34,19 @@ export const UserPage: FC = () => {
 
     const handleUpdateData = () =>{
         console.log(UserData)
+        if (UserData.username == ''){
+            UserData.username = user_name
+        }
         api.user.userUpdateUpdate(UserData)
         .then(() => {
+
             console.log('updated')
+            dispath(saveUser({
+                username : String(UserData.username),
+                Is_Auth : true,
+            }))
+            navigate('/cargo_catalog')
+            
         })
         .catch(() => {
             console.log('not updated')
@@ -49,6 +61,20 @@ export const UserPage: FC = () => {
             <div className="card-body">
                 <h5 className="card-title text-center mb-4">Изменить данные аккаунта</h5>
                 <form>
+
+                <div className="mb-3">
+                        <label htmlFor="username" className="form-label">
+                            Login
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            className="form-control border border-dark rounded-0"
+                            placeholder="Введите login"
+                            onChange={handleChangeData}
+                            value={UserData.username}
+                        />
+                    </div>
 
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">
