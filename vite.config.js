@@ -44,12 +44,12 @@ export default defineConfig({
         port: 3000,
         proxy: {
             "/api": {
-                target: "http://192.168.1.75:8000",
+                target: "http://172.20.10.6:8000",
                 changeOrigin: true,
                 rewrite: function (path) { return path.replace(/^\/api/, ""); },
             },
             "/lab1" : {
-                target: "http://192.168.1.75:9000",
+                target: "http://172.20.10.6:9000",
                 changeOrigin: true,
             }
         },

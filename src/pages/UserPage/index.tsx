@@ -6,10 +6,11 @@ import { api } from "../../core/api";
 import { UserAccountData } from "./typing";
 import { ChangeEvent } from "../../App.typing";
 import { selectUser } from "../../core/store/slices/selector";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { saveUser } from "../../core/store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
-
+import { UpdateUser } from "../../core/store/slices/userSlice";
+import { useDispatch } from "../../core/store";
 
 export const UserPage: FC = () => {
     const {username, Is_Auth} = useSelector(selectUser)
@@ -37,20 +38,38 @@ export const UserPage: FC = () => {
         if (UserData.username == ''){
             UserData.username = user_name
         }
-        api.user.userUpdateUpdate(UserData)
-        .then(() => {
-
+        dispath(UpdateUser(UserData)).then(() =>{
             console.log('updated')
             dispath(saveUser({
                 username : String(UserData.username),
                 Is_Auth : true,
+                user_errror: false,
+                loading_status : "idle"
             }))
             navigate('/cargo_catalog')
+    }
+    
+)
+.catch(() => {
+    console.log('not updated')
+})
+
+        // api.user.userUpdateUpdate(UserData)
+        // .then(() => {
+
+        //     console.log('updated')
+        //     dispath(saveUser({
+        //         username : String(UserData.username),
+        //         Is_Auth : true,
+        //         user_errror: false,
+        //         loading_status : "idle"
+        //     }))
+        //     navigate('/cargo_catalog')
             
-        })
-        .catch(() => {
-            console.log('not updated')
-        })
+        // })
+        // .catch(() => {
+        //     console.log('not updated')
+        // })
     }
 
     return (

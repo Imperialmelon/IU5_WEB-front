@@ -19,10 +19,7 @@ export const MainPage: FC = () => {
                         </p>
                     </Container>
                     <ImageCarousel />
-                    <Link to="/cargo_catalog" className='btn mx-auto btn_ref border border-dark' style={{height:"80px",width: "200px", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                    Перейти к Каталогу
-
-                    </Link>
+    
                 </Container>
             </Container>
         </>

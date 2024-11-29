@@ -1,13 +1,18 @@
 import "./LoginPage.css";
-import {FC, useState} from "react";
+import {FC, useState, useCallback} from "react";
 import {Container} from "react-bootstrap";
 import {Navbar} from "../../components/Navbar";
 import { LoginDataProps } from "./typing";
 import { ChangeEvent } from "../../App.typing";
 import { api } from "../../core/api";
-import { useDispatch, UseDispatch } from "react-redux";
+import { useDispatch } from "../../core/store";
 import { saveUser } from "../../core/store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../core/store/slices/userSlice";
+
+
+
+
 
 export const LoginPage: FC = () => {
     const navigate = useNavigate()
@@ -16,6 +21,10 @@ export const LoginPage: FC = () => {
         password : ""
     })
     const [error, setError] = useState(''); // Состояние для сообщения об ошибке
+
+
+
+    
 
 
     const handleLoginChange = (e : ChangeEvent) =>{
@@ -32,27 +41,39 @@ export const LoginPage: FC = () => {
 
     const clickLogin = () => {
         setError('')
-        if (LoginData.password && LoginData.username){
-            api.user.userLoginCreate(LoginData)
-            .then(() =>{
-                dispatch(saveUser({
-                    username :  LoginData.username,
-                    Is_Auth : true
-                }))
-                navigate('/cargo_catalog')
-            })
-            .catch((data) => {
-                if (data.status == 400) {
-                    
-                setError('Неверные данные')
-                }
-                else {
-                    setError('Сервер временно недоступен')
-                }
-
-            })
+        if (LoginData.password && LoginData.username) {
+            dispatch(loginUser(LoginData))
+                .unwrap()
+                .then((username) => {
+                    console.log('Успешный вход:', username)
+                    navigate('/cargo_catalog')
+                })
+                .catch((errorMessage) => {
+                    setError(errorMessage)
+                    console.log('Ошибка входа:', errorMessage)
+                })
         }
     }
+
+    const handleLogin = useCallback(async () => {
+        if (!LoginData.password || !LoginData.username) {
+            return // Можно добавить локальную валидацию
+        }
+
+        try {
+            const resultAction = await dispatch(loginUser(LoginData))
+            
+            if (loginUser.fulfilled.match(resultAction)) {
+                // Успешная авторизация
+                navigate('/cargo_catalog')
+            } else if (loginUser.rejected.match(resultAction)) {
+                // Можно добавить дополнительную обработку ошибок
+                console.error('Login failed:', resultAction.payload)
+            }
+        } catch (err) {
+            console.error('Login error:', err)
+        }
+    }, [LoginData, dispatch, navigate])
 
     return (
         <>
