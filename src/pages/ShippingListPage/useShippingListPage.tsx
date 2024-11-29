@@ -92,6 +92,7 @@ export const useShippingListPage = () => {
         function convertDatetimeToDDMMYYYY(dateString: string | null | undefined): string {
             if (!dateString) return "";
             const date = new Date(dateString);
+
             const day = String(date.getDate()).padStart(2, '0');
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
@@ -107,7 +108,8 @@ export const useShippingListPage = () => {
                     creationDate: convertDatetimeToDDMMYYYY(request.creation_datetime),
                     formDate: convertDatetimeToDDMMYYYY(request.formation_datetime),
                     completitionDate: convertDatetimeToDDMMYYYY(request.completion_datetime),
-                    total_price: Number(request.total_price)
+                    total_price: Number(request.total_price),
+                    organization : request.organization
                 }
         })
         return {data}

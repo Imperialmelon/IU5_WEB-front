@@ -5,6 +5,7 @@ export interface TableRow {
     formDate : string
     completitionDate : string
     total_price : number
+    organization : string
 }
 
 export interface TableProps {
