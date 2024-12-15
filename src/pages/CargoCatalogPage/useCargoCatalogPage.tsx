@@ -8,6 +8,7 @@ import {setPriceFilter} from "../../core/store/slices/appSlice.ts";
 import { api } from "../../core/api"
 import { setShippingData } from "../../core/store/slices/appSlice.ts";
 import { Cargo } from "../../core/api/Api.ts";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const useCargoCatalogPage = () => {
     const [IsActive, setIsActive] = useState<boolean>(false)
@@ -26,6 +27,9 @@ export const useCargoCatalogPage = () => {
     const handleSearchCargoClick = () => {
         console.log('started')
         setIsActive(false)
+        
+        
+        
         // getCargoList(Cargo_name,Number(price_filter))
         api.cargoes.cargoesList({cargo_name : Cargo_name })
             .then((data) => {

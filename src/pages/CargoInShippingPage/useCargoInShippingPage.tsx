@@ -1,6 +1,6 @@
 import "./CargoInShippingPage.css"
 import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useAsyncError, useNavigate, useParams } from "react-router-dom"
 import { api } from "../../core/api"
 import { ShippingWithInfo, Related } from "../../core/api/Api"
 import { ShippingRequestMock } from "../../core/mock/CargoInShippingMock"
@@ -8,9 +8,12 @@ import { ChangeEvent } from "../../App.typing"
 import { ShippingCargos } from "../../core/api/Api"
 import { store } from "../../core/store"
 import axios from "axios"
+import { useDispatch } from "../../core/store"
 import { Cargo } from "../../core/api/Api"
+import {clear, form} from "../../core/store/slices/appSlice"
 
 export const useCargoInShippingPage = () => {
+    const dispatch = useDispatch()
     const {id} = useParams();
     const [Organization , setOrg] = useState<string>('')
     const [amounts , setAmounts] = useState<{[key : string] : string}>({}) 
@@ -29,7 +32,7 @@ export const useCargoInShippingPage = () => {
     }
 )
     const [Allow_Edit, setAllow_Edit] = useState<boolean>(true)
-
+  
 
     const handleClickDeleteCargo = (key : number) =>{
         
@@ -101,7 +104,9 @@ export const useCargoInShippingPage = () => {
     }
 
     const handleClearClick = () => {
-        api.shipping.shippingDeleteDelete(id || "")
+        // api.shipping.shippingDeleteDelete(id || "")
+
+        dispatch(clear(id || ""))
         .then(() => {
             navigate('/cargo_catalog')
         })
@@ -112,7 +117,9 @@ export const useCargoInShippingPage = () => {
 
     const handleFormClick = () => {
 
-        api.shipping.shippingFormUpdate(id || "")
+        // api.shipping.shippingFormUpdate(id || "")
+
+        dispatch(form(id || ""))
         .then(() => {
             console.log('/cargo_catalog')
             navigate('/cargo_catalog')

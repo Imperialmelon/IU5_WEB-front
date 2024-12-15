@@ -48,7 +48,7 @@ export default defineConfig({
                 changeOrigin: true,
                 rewrite: function (path) { return path.replace(/^\/api/, ""); },
             },
-            "/lab1" : {
+            "/lab1": {
                 target: "http://172.20.10.6:9000",
                 changeOrigin: true,
             }

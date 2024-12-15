@@ -10,10 +10,10 @@ export const ShippingsTable : FC  <TableProps> = (props : TableProps) =>{
             <Card className="mb-2">
                 <Card.Body className="py-2 px-3">
                     <Row className="d-flex align-items-center">
-                        <Col xs={12} sm={2}>
+                        <Col xs={12} sm={1}>
                             <Card.Text><strong>№</strong></Card.Text>
                         </Col>
-                        <Col xs={12} sm={2}>
+                        <Col xs={12} sm={1}>
                             <Card.Text><strong>Статус</strong></Card.Text>
                         </Col>
                         <Col xs={12} sm={2}>
@@ -28,6 +28,9 @@ export const ShippingsTable : FC  <TableProps> = (props : TableProps) =>{
                         <Col xs={12} sm={2}>
                             <Card.Text><strong>Итоговая стоимость</strong></Card.Text>
                         </Col>
+                        <Col xs={12} sm={2}>
+                            <Card.Text><strong>Организация</strong></Card.Text>
+                        </Col>
                     </Row>
                 </Card.Body>
             </Card>
@@ -35,14 +38,14 @@ export const ShippingsTable : FC  <TableProps> = (props : TableProps) =>{
                 <Card key={shipping.number} className="mb-2">
                     <Card.Body className="py-2 px-3">
                         <Row className="d-flex align-items-center">
-                            <Col xs={12} sm={2}>
+                            <Col xs={12} sm={1}>
                                 <Card.Text>
-                                    <Link to={"/install_software_request/" + shipping.number} className="text-black">
+                                    <Link to={"/shipping/" + shipping.number} className="text-black">
                                         {shipping.number}
                                     </Link>
                                 </Card.Text>
                             </Col>
-                            <Col xs={12} sm={2}>
+                            <Col xs={12} sm={1}>
                                 <Card.Text>
                                     {shipping.status}
                                 </Card.Text>
@@ -65,6 +68,11 @@ export const ShippingsTable : FC  <TableProps> = (props : TableProps) =>{
                             <Col xs={12} sm={2}>
                                 <Card.Text>
                                     {shipping.total_price}
+                                </Card.Text>
+                            </Col>
+                            <Col xs={12} sm={2}>
+                                <Card.Text>
+                                    {shipping.organization}
                                 </Card.Text>
                             </Col>
                         </Row>

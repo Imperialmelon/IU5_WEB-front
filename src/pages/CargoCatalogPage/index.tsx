@@ -117,11 +117,6 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
                             </div>
                         );
                     })}
-
-
-
-
-
                 </div>
             ) :( <Container className="d-flex justify-content-center mt-4 mb-5">
             <h2>Ничего не найдено</h2>
@@ -129,7 +124,7 @@ export const CargoCatalogPage: FC<CargoCatalogPageProps> = () => {
 
                 </>
                 :  <>
-                <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }} >
+                <div  >
                 <HashLoader size={95} />
                 </div>
                       
